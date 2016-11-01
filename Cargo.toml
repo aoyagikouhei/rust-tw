@@ -1,0 +1,13 @@
+[package]
+name = "tw"
+version = "0.1.0"
+authors = ["aoyagikouhei"]
+
+[dependencies]
+rand = "*"
+rust-crypto = "*"
+rustc-serialize = "*"
+time = "*"
+url = "*"
+hyper = "*"
+json = "*"
