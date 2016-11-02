@@ -8,7 +8,7 @@ use crypto::mac::{Mac, MacResult};
 use rustc_serialize::base64::ToBase64;
 use time::now_utc;
 
-fn encode(s: &str) -> String {
+pub fn encode(s: &str) -> String {
     url::form_urlencoded::byte_serialize(s.as_bytes()).collect::<String>()
 }
 

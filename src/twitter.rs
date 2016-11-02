@@ -67,6 +67,14 @@ impl<'a> Twitter<'a> {
         json::parse(&res).unwrap()
     }
 
+    fn make_params(&self, option: Option<&Vec<(&'a str, &'a str)>>) -> Vec<(&'a str, &'a str)> {
+        let mut params: Vec<(&str, &str)> = vec![];
+        for i in option.iter().flat_map(|v| v.iter()) {
+            params.push((i.0, i.1));
+        }
+        params
+    }
+
     pub fn verify_credentials(&self, option: Option<&Vec<(&str, &str)>>) -> json::JsonValue {
         let uri = "https://api.twitter.com/1.1/account/verify_credentials.json";
         let method = "GET";
@@ -81,5 +89,16 @@ impl<'a> Twitter<'a> {
             params.push((i.0, i.1));
         }
         self.execute(&uri, &method, Some(&params))
+    }
+
+    pub fn search_tweets(&self, q: &str, option: Option<&Vec<(&str, &str)>>) -> json::JsonValue {
+        let uri = "https://api.twitter.com/1.1/search/tweets.json";
+        let method = "GET";
+        let encoded = oauth::encode(q);
+        {
+            let mut params = self.make_params(option);
+            params.push(("q", &encoded));
+            self.execute(&uri, &method, Some(&params))
+        }
     }
 }
