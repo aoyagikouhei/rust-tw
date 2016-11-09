@@ -39,7 +39,7 @@ impl<'a> Twitter<'a> {
         let mut res = String::new();
         if "GET" == method {
             let calced_uri = match option {
-                Some(opt) => format!("{}?{}", uri, oauth::make_query(opt, "&")),
+                Some(opt) => format!("{}?{}", uri, oauth::make_query_with_encode(opt, "&")),
                 None => String::from(uri)
             };
             hyper::Client::new().get(&calced_uri)
@@ -110,7 +110,7 @@ impl<'a> Twitter<'a> {
 
     pub fn users_lookup(&self, option: Option<&Vec<(&str, &str)>>) -> json::JsonValue {
         let uri = "https://api.twitter.com/1.1/users/lookup.json";
-        let method = "POST";
+        let method = "GET";
         self.execute(&uri, &method, option)
     }
 }

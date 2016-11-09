@@ -41,6 +41,17 @@ pub fn make_query(list: &Vec<(&str, &str)>, separator: &str) -> String {
     result
 }
 
+pub fn make_query_with_encode(list: &Vec<(&str, &str)>, separator: &str) -> String {
+    let mut result = String::from("");
+    for item in list {
+        if "" != result {
+            result.push_str(separator);
+        }
+        result.push_str(&format!("{}={}", item.0, encode(item.1)));
+    }
+    result
+}
+
 pub fn make_oauth(
     consumer_key: &str,
     consumer_secret: &str,
