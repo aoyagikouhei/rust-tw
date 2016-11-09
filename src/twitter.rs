@@ -101,4 +101,18 @@ impl<'a> Twitter<'a> {
             self.execute(&uri, &method, Some(&params))
         }
     }
+
+    pub fn followers_ids(&self, user_id: &str, option: Option<&Vec<(&str, &str)>>) -> json::JsonValue {
+        let uri = "https://api.twitter.com/1.1/followers/ids.json";
+        let method = "GET";
+        let mut params = self.make_params(option);
+        params.push(("user_id", &user_id));
+        self.execute(&uri, &method, Some(&params))
+    }
+
+    pub fn users_lookup(&self, option: Option<&Vec<(&str, &str)>>) -> json::JsonValue {
+        let uri = "https://api.twitter.com/1.1/users/lookup.json";
+        let method = "GET";
+        self.execute(&uri, &method, option)
+    }
 }
