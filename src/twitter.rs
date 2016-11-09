@@ -110,7 +110,7 @@ impl<'a> Twitter<'a> {
 
     pub fn users_lookup(&self, option: Option<&Vec<(&str, &str)>>) -> json::JsonValue {
         let uri = "https://api.twitter.com/1.1/users/lookup.json";
-        let method = "GET";
+        let method = "POST";
         self.execute(&uri, &method, option)
     }
 }
